@@ -11,26 +11,38 @@
         TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
     };
 */
-vector<int> getPreOrderTraversal(TreeNode *root)
+vector<int> getPostOrderTraversal(TreeNode *root)
 {
-    vector<int> res;
+    vector<int> ans;
     if(root==NULL){
-        return res;
-    }  
+        return ans;
+    }
     stack<TreeNode*> st;
-    st.push(root);
-    while(!st.empty()){
-        TreeNode* node = st.top();
-        st.pop();
-        
-        res.push_back(node->data);
-        
-        if(node->right){
-            st.push(node->right);
+    TreeNode* curr=root;
+    
+    while(curr != NULL || st.empty() != true){
+        if(curr != NULL){
+            st.push(curr);
+            curr = curr->left;
         }
-        if(node->left){
-            st.push(node->left);
+        
+        else{
+            TreeNode* temp = st.top()->right;
+            
+            if(temp==NULL){
+                temp = st.top();
+                st.pop();
+                ans.push_back(temp->data);
+                while(!st.empty() && temp==st.top()->right){
+                    temp = st.top();
+                    st.pop();
+                    ans.push_back(temp->data);
+                }
+            }
+            else{
+                curr=temp;
+            }
         }
     }
-    return res;
+    return ans;
 }
