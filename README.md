@@ -10,4 +10,5 @@ Day7 - 3,
 Day8 - 6,
 Day9 - 6,
 Day10 - 0,
-Day11 - 0
+Day11 - 0,
+Day12 - 1
